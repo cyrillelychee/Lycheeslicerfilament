@@ -6,6 +6,7 @@
 #include <boost/algorithm/string/join.hpp>
 #include <boost/filesystem/directory.hpp>
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string/replace.hpp>
 #include <boost/bind/bind.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -87,6 +88,15 @@ using namespace nlohmann;
 
 namespace Slic3r { namespace GUI {
 
+// Lychee: shows the app name in place of "Orca Slicer" / "OrcaSlicer" in an already translated
+// string, so the existing translation catalogs keep matching.
+static std::string with_app_name(std::string text)
+{
+    boost::replace_all(text, "Orca Slicer", SLIC3R_APP_NAME);
+    boost::replace_all(text, "OrcaSlicer", SLIC3R_APP_NAME);
+    return text;
+}
+
 // The strings of every setup wizard page (resources/web/guide), keyed by their data-i18n and T() ids.
 // The pages share one web view, so they share one table.
 static json guide_strings()
@@ -95,8 +105,8 @@ static json guide_strings()
         {"loading", _u8L("Loading…")},
         // TRN Sidebar entry of the printer selection page for the group of custom (user-defined) printers.
         {"custom_vendor", _u8L_CONTEXT("Custom", "Printer vendor")},
-        {"welcome", _u8L("Welcome to Orca Slicer")},
-        {"setup_intro", _u8L("Orca Slicer will be set up in several steps. Let's start!")},
+        {"welcome", with_app_name(_u8L("Welcome to Orca Slicer"))},
+        {"setup_intro", with_app_name(_u8L("Orca Slicer will be set up in several steps. Let's start!"))},
         {"get_started", _u8L("Get Started")},
         {"login_region", _u8L("Please select your login region")},
         {"asia_pacific", _u8L("Asia-Pacific")},
@@ -149,7 +159,7 @@ static json guide_strings()
         {"enable_stealth_mode", _u8L("Enable Stealth Mode.")},
         {"proprietary_plugins", _u8L("Proprietary Plugins")},
         {"proprietary_plugins_desc", _u8L("Some printer vendors require proprietary plugins for communication with their printers. Please select the corresponding plugin if you use such printers.")},
-        {"proprietary_plugins_risk", _u8L("Please be aware that these plugins are not developed or maintained by OrcaSlicer. They should be used at your own discretion and risk.")},
+        {"proprietary_plugins_risk", with_app_name(_u8L("Please be aware that these plugins are not developed or maintained by OrcaSlicer. They should be used at your own discretion and risk."))},
         {"install_bambu_plugin", _u8L("Install Bambu Network plug-in")},
     };
 }
