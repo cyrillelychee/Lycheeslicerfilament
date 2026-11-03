@@ -345,9 +345,9 @@ else ()
             set(BIN_DIR "${CMAKE_CURRENT_BINARY_DIR}/OrcaSlicer.app/Contents/MacOS")
         endif()
         set(MACOSX_BUNDLE_ICON_FILE Icon.icns)
-        set(MACOSX_BUNDLE_BUNDLE_NAME "OrcaSlicer")
+        set(MACOSX_BUNDLE_BUNDLE_NAME "${SLIC3R_APP_NAME}")
         set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${SoftFever_VERSION})
-        set(MACOSX_BUNDLE_COPYRIGHT "Copyright(C) 2022-2024 Li Jiang All Rights Reserved")
+        set(MACOSX_BUNDLE_COPYRIGHT "Lychee Filament is based on OrcaSlicer (AGPL-3.0). Copyright(C) 2022-2024 Li Jiang All Rights Reserved")
         if (XCODE)
             # Xcode's CodeSign phase fails on the bundled Python runtime's dotted
             # dirs (python3.12) under Contents/MacOS. Skip it for local dev builds

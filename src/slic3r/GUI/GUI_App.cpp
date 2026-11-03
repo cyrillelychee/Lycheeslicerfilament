@@ -2741,7 +2741,8 @@ void GUI_App::init_webview_runtime()
 void GUI_App::init_app_config()
 {
 	// Profiles for the alpha are stored into the PrusaSlicer-alpha directory to not mix with the current release.
-    SetAppName(SLIC3R_APP_KEY);
+    // Lychee: separate data directory from a stock OrcaSlicer install (SLIC3R_APP_KEY stays "OrcaSlicer" for translation catalogs and the executable name)
+    SetAppName("LycheeFilament");
 //	SetAppName(SLIC3R_APP_KEY "-alpha");
 //  SetAppName(SLIC3R_APP_KEY "-beta");
 //	SetAppDisplayName(SLIC3R_APP_NAME);
