@@ -387,6 +387,17 @@ function build_slicer() {
                 find ./OrcaSlicer_profile_validator.app/ -name '.DS_Store' -delete
                 verify_python_runtime ./OrcaSlicer_profile_validator.app
             fi
+
+            # Lychee: name the bundle after CFBundleName, which is what Finder and the Dock show.
+            # A universal build still needs OrcaSlicer.app in each architecture's folder.
+            if [ "$ARCH" != "universal" ]; then
+                app_name=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleName' ./OrcaSlicer.app/Contents/Info.plist)
+                if [ "$app_name" != "OrcaSlicer" ]; then
+                    rm -rf "./$app_name.app"
+                    mv ./OrcaSlicer.app "./$app_name.app"
+                    echo "App bundle renamed to $app_name.app"
+                fi
+            fi
         )
 
         # extract version
